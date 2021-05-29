@@ -70,18 +70,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-//is_keyboard_ can be changed to left or right
+//is_keyboard_ can be changed to left or right idk if this is useful but better be safe than sorry
 __attribute__((weak)) bool is_keyboard_right(void){
   return eeconfig_read_handedness();
 }
 
-
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (eeconfig_read_handedness() == 1) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  if (eeconfig_read_handedness() == 0) {
+    return OLED_ROTATION_180;  // flips the display 180 degrees if right hand
   }
-  else if (eeconfig_read_handedness() == 0){
+  else if (eeconfig_read_handedness() == 1){
       return OLED_ROTATION_0;
   }
   return rotation;
